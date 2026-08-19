@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SkillSpring favicon">
+<rect width="64" height="64" rx="14" fill="#0F172A"/>
+<g transform="translate(0,4) scale(1)"><path d="M16 18 32 11l16 7-16 7z" fill="#0EA5E9"/>
+<path d="M16 18v16l16 8 16-8V18L32 26z" fill="#10B981"/>
+<path d="M32 26v16" stroke="#0F172A" stroke-width="3" stroke-linecap="round"/>
+<path d="M11 30c-4 3-5 8-1 12 5 5 12 5 17 1" fill="none" stroke="#10B981" stroke-width="5" stroke-linecap="round"/>
+<path d="M53 30c4 3 5 8 1 12-5 5-12 5-17 1" fill="none" stroke="#10B981" stroke-width="5" stroke-linecap="round"/>
+<path d="M32 8c2-5 6-7 10-6-1 5-4 8-10 9z" fill="#10B981"/></g>
+</svg>
