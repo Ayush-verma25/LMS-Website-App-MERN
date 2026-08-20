@@ -17,11 +17,7 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Server is Running");
 });
-app.post(
-  "/api/clerk",
-  express.raw({ type: "application/json" }),
-  clerkWebhooks,
-);
+app.post("/clerk", express.json(), clerkWebhooks);
 
 // Port
 const PORT = process.env.PORT || 8000;
