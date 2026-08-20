@@ -1,19 +1,22 @@
 import { Webhook } from "svix";
 import User from "../models/User.js";
 
-// API controller Function to Manadge Clerk user with Database
+// API controller Function to Manage Clerk User with Database
 
 export const clerkWebhooks = async (req, res) => {
   try {
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
-    await whook.verify(JSON.stringify(req.body), {
+    // req.body must be the RAW request body (Buffer/string), not a parsed
+    // object, or signature verification will fail. Make sure this route
+    // uses express.raw({ type: "application/json" }) instead of express.json().
+    await whook.verify(req.body, {
       "svix-id": req.headers["svix-id"],
       "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"],
     });
 
-    const { data, type } = req.body;
+    const { data, type } = JSON.parse(req.body);
 
     switch (type) {
       case "user.created": {
@@ -30,7 +33,7 @@ export const clerkWebhooks = async (req, res) => {
 
       case "user.updated": {
         const userData = {
-          email: data.email_address[0].email_address,
+          email: data.email_addresses[0].email_address,
           name: data.first_name + " " + data.last_name,
           imageUrl: data.image_url,
         };
@@ -49,6 +52,7 @@ export const clerkWebhooks = async (req, res) => {
         break;
     }
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    console.error("Clerk webhook error:", error.message);
+    res.status(400).json({ success: false, message: error.message });
   }
 };
