@@ -165,6 +165,7 @@ const Player = () => {
                           <img
                             src={
                               progressData &&
+                              playerData &&
                               progressData.lectureCompleted.includes(
                                 playerData.lectureId,
                               )
@@ -218,7 +219,7 @@ const Player = () => {
           {playerData ? (
             <div>
               <YouTube
-                videoId={playerData.lectureUrl.split("/").pop()}
+                videoId={playerData?.lectureUrl?.split("/").pop() ?? ""}
                 iframeClassName="w-full aspect-video"
               />
               <div className="flex justify-between items-center mt-1">
