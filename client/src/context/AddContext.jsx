@@ -40,10 +40,8 @@ export const AppContextProvider = (props) => {
 
   // Fetch User Data
   const fetchUserData = async () => {
-    if (user?.publicMetadata?.role === "educator") {
+    if (user.publicMetadata.role === "educator") {
       setIsEducator(true);
-    } else {
-      setIsEducator(false);
     }
 
     try {
@@ -73,7 +71,7 @@ export const AppContextProvider = (props) => {
     course.courseRatings.forEach((rating) => {
       totalRating += rating.rating;
     });
-    return Math.floor(totalRating / course.courseRatings.length);
+    return Math.floor(totalRating / course.courseRatings.length) || 0;
   };
 
   // function to calculate course chapter time
@@ -117,7 +115,7 @@ export const AppContextProvider = (props) => {
       );
 
       if (data.success) {
-        setEnrolledCourses(data.enrolledCourses.toReversed());
+        setEnrolledCourses(data.enrolledCourses.reverse());
       } else {
         toast.error(data.message);
       }
