@@ -12,7 +12,6 @@ import Rating from "../../components/student/Rating";
 import axios from "axios";
 import Loading from "../../components/student/Loading";
 import { toast } from "react-toastify";
-import { getYouTubeVideoId } from "../../utils/video.js";
 
 const Player = () => {
   const {
@@ -119,13 +118,9 @@ const Player = () => {
     }
   };
 
-  const videoId = getYouTubeVideoId(playerData.lectureUrl);
-
   useEffect(() => {
-    if (userData) {
-      getCourseProgress();
-    }
-  }, [userData]);
+    getCourseProgress();
+  }, []);
 
   return courseData ? (
     <>
@@ -171,7 +166,7 @@ const Player = () => {
                             src={
                               progressData &&
                               progressData.lectureCompleted.includes(
-                                lecture.lectureId,
+                                playerData.lectureId,
                               )
                                 ? assets.blue_tick_icon
                                 : assets.play_icon
@@ -222,20 +217,10 @@ const Player = () => {
         <div className="md:mt-10">
           {playerData ? (
             <div>
-              {videoId ? (
-                <YouTube
-                  videoId={videoId}
-                  opts={{ width: "100%", playerVars: { autoplay: 0, rel: 0 } }}
-                  iframeClassName="w-full aspect-video"
-                />
-              ) : (
-                <video
-                  src={playerData.lectureUrl}
-                  controls
-                  className="w-full aspect-video bg-black"
-                />
-              )}
-
+              <YouTube
+                videoId={playerData.lectureUrl.split("/").pop()}
+                iframeClassName="w-full aspect-video"
+              />
               <div className="flex justify-between items-center mt-1">
                 <p>
                   {playerData.chapter}.{playerData.lecture}{" "}
